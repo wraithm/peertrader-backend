@@ -1,0 +1,200 @@
+Name:                peertrader-backend
+Version:             0.1.0
+Synopsis:            Automated investing tool for P2P loans
+Description:         PeerTrader allows you to automatically invest in P2P loans.
+homepage:            peertrader.com
+license:             BSD3
+License-file:        LICENSE
+Author:              Matthew Wraith
+Maintainer:          wraithm@gmail.com
+copyright:           (c) 2015 Matthew Wraith
+category:            Finance
+build-type:          Simple
+cabal-version:       >=1.10
+
+source-repository head
+  type:     git
+  location: https://github.com/WraithM/peertrader-backend
+
+Flag development
+  Description: Whether to build the server in development (interpreted) mode
+  Default: False
+
+Flag old-base
+  default: False
+  manual: False
+
+Executable peertrader
+  hs-source-dirs:   src
+  main-is:          Web.hs
+  default-language: Haskell2010
+
+  Build-depends:
+    bytestring                >= 0.9.1   && < 0.11,
+    heist                     >= 0.14    && < 0.15,
+    MonadCatchIO-transformers >= 0.2.1   && < 0.4,
+    mtl                       >= 2       && < 3,
+    snap                      >= 0.14    && < 0.15,
+    snap-core                 >= 0.9     && < 0.11,
+    snap-server               >= 0.9     && < 0.11,
+    snap-loader-static        >= 0.9     && < 0.10,
+    text                      >= 0.11    && < 1.3,
+    time                      >= 1.1     && < 1.5,
+    xmlhtml                   >= 0.1,
+    prosper                   >= 0.1.2,
+    notescript                >= 0.1.1,
+    vector                    >= 0.10.9.1,
+    aeson                     >= 0.7.0.2,
+    transformers              >= 0.3.0.0,
+    attoparsec                >= 0.12.0.0,
+    stm                       >= 2.4.2,
+    unordered-containers      >= 0.2.3.3,
+    snaplet-postgresql-simple >= 0.5,
+    postgresql-simple         >= 0.4.2.1,
+    blaze-builder             >= 0.3.3.2,
+    snap-extras               >= 0.9,
+    enclosed-exceptions       >= 1.0.0.1,
+    groundhog                 >= 0.7.0,
+    groundhog-postgresql      >= 0.7.0,
+    groundhog-th              >= 0.7.0,
+    resource-pool             >= 0.2.2.0,
+    monad-logger              >= 0.3.6.1,
+    groundhog-utils           >= 0.2.2,
+    async                     >= 2.0.1.5,
+    cron                      >= 0.2.1,
+    websockets                >= 0.8.2.6,
+    websockets-snap           >= 0.8.2.1,
+    configurator              >= 0.2.0.2,
+    snaplet-ekg               >= 0.1,
+    monad-control             >= 0.3.3.0,
+    network                   >= 2.5.0.0,
+    io-streams                >= 1.1.4.6,
+    cryptohash                >= 0.11.6,
+    http-streams              >= 0.7.2.0,
+    HsOpenSSL                 >= 0.10.5,
+    base16-bytestring         >= 0.1.1.6,
+    filepath                  >= 1.3.0.2,
+    blaze-html                >= 0.7.0.2,
+    blaze-markup              >= 0.6.1.0,
+    snaplet-ses-html          >= 0.1.0.0,
+    lens-aeson                >= 1.0.0.3,
+    adjunctions               >= 4.2,
+    cereal                    >= 0.4.0.1,
+    cereal-text               >= 0.1.0.0,
+    zeromq4-haskell           >= 0.6.2
+
+  if flag(old-base)
+    build-depends:
+      base                      >= 4        && < 4.4,
+      lens                      >= 3.7.6    && < 3.8
+  else
+    build-depends:
+      base                      >= 4.4      && < 5,
+      lens                      >= 3.7.6    && < 4.10
+
+  if flag(development)
+    build-depends:
+      snap-loader-dynamic == 0.10.*
+    cpp-options: -DDEVELOPMENT
+    -- In development mode, speed is already going to suffer, so skip
+    -- the fancy optimization flags.  Additionally, disable all
+    -- warnings.  The hint library doesn't give an option to execute
+    -- compiled code when there were also warnings, so disabling
+    -- warnings allows quicker workflow.
+    ghc-options: -threaded -w
+  else
+    if impl(ghc >= 6.12.0)
+      ghc-options: -threaded -Wall -fwarn-tabs -funbox-strict-fields -O2
+                   -fno-warn-orphans -fno-warn-unused-do-bind
+    else
+      ghc-options: -threaded -Wall -fwarn-tabs -funbox-strict-fields -O2
+                   -fno-warn-orphans
+
+Executable peertraderOps
+  hs-source-dirs:   src
+  main-is:          Ops.hs
+  default-language: Haskell2010
+
+  Build-depends:
+    bytestring                >= 0.9.1   && < 0.11,
+    mtl                       >= 2       && < 3,
+    text                      >= 0.11    && < 1.3,
+    time                      >= 1.1     && < 1.5,
+    prosper                   >= 0.1.2,
+    notescript                >= 0.1.1,
+    vector                    >= 0.10.9.1,
+    aeson                     >= 0.7.0.2,
+    transformers              >= 0.3.0.0,
+    attoparsec                >= 0.12.0.0,
+    stm                       >= 2.4.2,
+    unordered-containers      >= 0.2.3.3,
+    postgresql-simple         >= 0.4.2.1,
+    enclosed-exceptions       >= 1.0.0.1,
+    groundhog                 >= 0.6.0,
+    groundhog-postgresql      >= 0.6.0,
+    groundhog-th              >= 0.6.0,
+    resource-pool             >= 0.2.2.0,
+    monad-logger              >= 0.3.6.1,
+    groundhog-utils           >= 0.2.2,
+    async                     >= 2.0.1.5,
+    cron                      >= 0.2.1,
+    configurator              >= 0.2.0.2,
+    cereal                    >= 0.4.0.1,
+    cereal-text               >= 0.1.0.0,
+    zeromq4-haskell           >= 0.6.2,
+    blaze-builder             >= 0.3.3.2,
+    lens-aeson                >= 1.0.0.3,
+    monad-control             >= 0.3.3.0,
+    filepath                  >= 1.3.0.2,
+    base16-bytestring         >= 0.1.1.6,
+    HsOpenSSL                 >= 0.10.5,
+    cryptohash                >= 0.11.6,
+    http-streams              >= 0.7.2.0,
+    io-streams                >= 1.1.4.6
+
+  if flag(old-base)
+    build-depends:
+      base                      >= 4        && < 4.4,
+      lens                      >= 3.7.6    && < 3.8
+  else
+    build-depends:
+      base                      >= 4.4      && < 5,
+      lens                      >= 3.7.6    && < 4.10
+
+  if impl(ghc >= 6.12.0)
+    ghc-options: -threaded -Wall -fwarn-tabs -funbox-strict-fields -O2
+                 -fno-warn-orphans -fno-warn-unused-do-bind
+  else
+    ghc-options: -threaded -Wall -fwarn-tabs -funbox-strict-fields -O2
+                 -fno-warn-orphans
+
+Test-suite tests
+  hs-source-dirs:       test, src
+  main-is:              RunTests.hs
+  type:                 exitcode-stdio-1.0
+  ghc-options:          -Wall -threaded -fno-warn-unused-do-bind
+  default-language:     Haskell2010
+  build-depends:
+    base,
+    HUnit,
+    QuickCheck,
+    smallcheck,
+    tasty,
+    tasty-hunit,
+    tasty-quickcheck,
+    tasty-smallcheck,
+    tasty-ant-xml
+
+Benchmark bench-peertrader
+  hs-source-dirs:       bench, src
+  main-is:              RunBench.hs
+  type:                 exitcode-stdio-1.0
+  ghc-options:          -Wall -threaded -funbox-strict-fields -O2
+  default-language:     Haskell2010
+  build-depends:
+    base,
+    criterion,
+    prosper,
+    notescript,
+    mtl,
+    enclosed-exceptions

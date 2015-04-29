@@ -1,0 +1,28 @@
+.*.swp
+dist
+.cabal-sandbox
+cabal.sandbox.config
+.ghci
+*.o
+*.hi
+*.chi
+*.chs.h
+.virthualenv
+log
+node_modules
+.tmp
+static/bower_components
+
+# Project specifics
+users.json
+site_key.txt
+codex.tags
+tags
+fabfile.pyc
+*.tpl
+
+*.cfg
+
+# p2p picks
+guardian_linux
+PT_Prosper*
