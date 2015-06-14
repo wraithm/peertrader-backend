@@ -9,7 +9,7 @@
 module Application where
 
 import           Control.Applicative           ((<$>))
-import           Control.Concurrent            (killThread, threadDelay)
+import           Control.Concurrent            (forkIO, killThread, threadDelay)
 import           Control.Concurrent.STM
 import           Control.Exception             (SomeException)
 import           Control.Lens
@@ -43,10 +43,9 @@ import           Snap.Snaplet.Session
 import           Logging                       (debugM)
 import           Prosper                       (Account,
                                                 UnauthorizedException (..),
-                                                User (..),
-                                                account)
-import           Prosper.Monad                 (Prosper, ProsperState,
-                                                runProsper,forkP)
+                                                User (..), account)
+import           Prosper.Monad                 (Prosper, ProsperState, forkP,
+                                                runProsper)
 
 import           PeerTrader.Account.Web
 import           PeerTrader.Socket.Command
@@ -166,16 +165,16 @@ initAccountUpdate n delay = do
             , _prosperAccount = a
             , _prosperAccountThread = Nothing
             }) -> do
-            tid <- handleProsper . forkP . forever $
+            tid <- liftIO . forkIO . forever $
                 updateAccountLoop i a
             putAccountVar n prosperAccountThread (Just tid)
         _ -> return ()
   where
-    updateAccountLoop :: User -> TVar Account -> Prosper ()
+    updateAccountLoop :: User -> TVar Account -> IO ()
     updateAccountLoop i a = do
-        newAccount <- liftIO $ account i
-        _ <- (liftIO . atomically . writeTVar a) newAccount
-        liftIO $ threadDelay delay
+        newAccount <- account i
+        _ <- (atomically . writeTVar a) newAccount
+        threadDelay delay
       `catches`
         [ E.Handler staleAccountException
         , E.Handler accountExceptionHandler ]
@@ -185,11 +184,11 @@ initAccountUpdate n delay = do
     -- Need to reactivate when the user changes their account data.
     -- NEED BETTER EXCEPTION HANDLING IN THIS WHOLE THING.
     -- Async exceptions? Manager thread!? LOTS OF STUFF.
-    staleAccountException :: UnauthorizedException -> Prosper ()
+    staleAccountException :: UnauthorizedException -> IO ()
     staleAccountException (UnauthorizedException msg) =
         debugM (show n) $ "Account out of date: " ++ show msg
 
-    accountExceptionHandler :: SomeException -> Prosper ()
+    accountExceptionHandler :: SomeException -> IO ()
     accountExceptionHandler e = debugM (show n) $
         "Caught some exception updating account... " ++ show e ++ " Continuing..."
 

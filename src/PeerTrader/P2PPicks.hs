@@ -37,7 +37,7 @@ p2pPicksLoop ops = do
     -- and then users
     forever $ do
         l <- atomically $ readTChan pq
-        runProsper ps $ liftIO $ listingCSV ui l (handleCsvStream l)
+        listingCSV ui l (handleCsvStream l)
   where
     ps = _prosperState ops
     pmaxResults = _p2pProfitMaxResults ops

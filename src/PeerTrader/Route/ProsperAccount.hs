@@ -152,7 +152,7 @@ addAccount n ui = checkAccount $ \a -> do
     -- Before creating an account, check if there is actually data,
     -- if there is data, then continue, else noProsperAccount
     checkAccount k =
-            (handleProsper (liftIO $ account ui) >>= k)
+            (liftIO (account ui) >>= k)
         `catches`
             [ Handler noMoneyInAccount
             , Handler noProsperAccount

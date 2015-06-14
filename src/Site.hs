@@ -101,7 +101,7 @@ initializeDatabase g ps = do
         -- Attempt to get Prosper account from Prosper API.
         -- if fail, log and return result from db
         initProsperAccount ui =
-            runProsper ps (liftIO $ P.account ui)
+            P.account ui
           `catches`
             [ Handler unauthorizedAccount
             , Handler failProsperAcct ]
