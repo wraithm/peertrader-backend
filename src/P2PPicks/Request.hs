@@ -23,7 +23,7 @@ import           Data.ByteString        hiding (map)
 import qualified Data.ByteString.Base16 as B
 import qualified Data.ByteString.Lazy   as L
 import           Data.List              (intersperse)
-import           Data.Monoid            (mconcat, (<>))
+import           Data.Monoid            ((<>))
 import           Data.Text              (Text)
 import           Data.Text.Encoding     (decodeUtf8)
 import           Data.Text.Strict.Lens  (utf8)

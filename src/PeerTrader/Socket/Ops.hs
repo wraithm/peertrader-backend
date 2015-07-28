@@ -4,7 +4,6 @@ module PeerTrader.Socket.Ops (startServer) where
 
 import           System.ZMQ4.Monadic
 
-import           Control.Applicative                          ((<$>))
 import           Control.Concurrent                           (forkIO,
                                                                killThread)
 import           Control.Concurrent.STM

@@ -3,7 +3,7 @@
 
 module PeerTrader.Route.User where
 
-import           Control.Applicative               ((<$>), (<|>))
+import           Control.Applicative               ((<|>))
 import           Control.Concurrent                (forkIO)
 import           Control.Concurrent.Async
 import           Control.Monad                     (void)
@@ -13,7 +13,7 @@ import           Control.Monad.Trans.Reader
 
 import           Data.Aeson
 import qualified Data.ByteString.Lazy              as L
-import           Data.Monoid                       (mempty, (<>))
+import           Data.Monoid                       ((<>))
 import qualified Data.Text                         as T
 import qualified Data.Text.Encoding                as T
 

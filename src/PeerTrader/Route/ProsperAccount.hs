@@ -18,7 +18,7 @@ import           Snap.Core
 import           Snap.Extras.CoreUtils         (badReq, notFound)
 import           Snap.Extras.JSON              (writeJSON)
 
-import           Control.Applicative           ((<$>), (<*>), (<|>))
+import           Control.Applicative           ((<|>))
 import           Control.Exception             (SomeException)
 import           Control.Monad                 (join)
 import           Control.Monad.CatchIO         (Handler (..), catches)

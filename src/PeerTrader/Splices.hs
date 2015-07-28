@@ -2,7 +2,6 @@
 
 module PeerTrader.Splices where
 
-import           Control.Applicative           ((<$>))
 import           Control.Monad                 (liftM)
 import           Control.Monad.Trans           (lift)
 import           Control.Monad.Util            (ifM)

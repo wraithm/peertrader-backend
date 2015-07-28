@@ -1,6 +1,7 @@
+{-# LANGUAGE FlexibleContexts #-}
+
 module PeerTrader.StrategyManagement where
 
-import           Control.Applicative                          ((<$>))
 import           Control.Monad                                (liftM)
 
 import           Data.Maybe                                   (listToMaybe)

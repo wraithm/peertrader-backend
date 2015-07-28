@@ -1,3 +1,4 @@
+{-# LANGUAGE FlexibleContexts  #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 -- | This module is where all the routes and handlers are defined for your
@@ -73,9 +74,8 @@ import           PeerTrader.Route.User
 
 initializeDatabase
     :: Pool Postgresql
-    -> ProsperState
     -> IO (TVar (HashMap UserLogin AccountData))
-initializeDatabase g ps = do
+initializeDatabase g = do
     ptUsers <- runDbConn selectUser g
     hm <- foldM newAccount H.empty ptUsers
     newTVarIO hm
@@ -200,7 +200,7 @@ app = makeSnaplet "app" "PeerTrader" Nothing $ do
         migrate (undefined :: NewUser)
     ps <- initializePeerTrader
 
-    accts <- liftIO $ initializeDatabase g ps
+    accts <- liftIO $ initializeDatabase g
     commandChan <- liftIO $ atomically newTChan
     liftIO $ startClient commandChan accts
 

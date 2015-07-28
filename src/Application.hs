@@ -8,7 +8,6 @@
 
 module Application where
 
-import           Control.Applicative           ((<$>))
 import           Control.Concurrent            (forkIO, killThread, threadDelay)
 import           Control.Concurrent.STM
 import           Control.Exception             (SomeException)
@@ -44,7 +43,7 @@ import           Logging                       (debugM)
 import           Prosper                       (Account,
                                                 UnauthorizedException (..),
                                                 User (..), account)
-import           Prosper.Monad                 (Prosper, ProsperState, forkP,
+import           Prosper.Monad                 (Prosper, ProsperState,
                                                 runProsper)
 
 import           PeerTrader.Account.Web

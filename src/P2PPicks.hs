@@ -8,8 +8,6 @@ module P2PPicks
     , module T
     ) where
 
-import           Control.Applicative     ((<$>))
-
 import           Data.Configurator       as C
 import           Data.Configurator.Types
 

@@ -1,3 +1,4 @@
+{-# LANGUAGE FlexibleContexts  #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module PeerTrader.Route.P2PPicksAccount
@@ -9,8 +10,7 @@ import           Snap.Extras.CoreUtils                        (badReq)
 import           Snap.Snaplet                                 (with)
 import           Snap.Snaplet.P2PPicks
 
-import           Control.Applicative                          ((<$>), (<*>),
-                                                               (<|>))
+import           Control.Applicative                          ((<|>))
 import           Control.Exception                            (SomeException)
 import           Control.Monad                                (join)
 import           Control.Monad.CatchIO                        (catch)
@@ -20,7 +20,7 @@ import           Data.ByteString
 
 import           Database.Groundhog
 
-import           Logging                              (debugM)
+import           Logging                                      (debugM)
 
 import           Application
 import           PeerTrader.Account.Web                       (p2ppicksAccount)

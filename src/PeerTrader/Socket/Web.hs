@@ -8,7 +8,6 @@ import           Snap.Extras.CoreUtils                        (finishEarly)
 import           Snap.Snaplet                                 (with)
 import           Snap.Snaplet.P2PPicks
 
-import           Control.Applicative                          ((<$>))
 import           Control.Concurrent                           (threadDelay)
 import           Control.Concurrent.Async                     as A
 import           Control.Concurrent.STM

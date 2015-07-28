@@ -5,7 +5,6 @@ module PeerTrader.Route.StreamData where
 import           Snap.Core
 import           Snap.Extras.JSON       (writeJSON)
 
-import           Control.Applicative    ((<$>))
 import           Control.Monad.IO.Class (liftIO)
 
 import           Data.Aeson

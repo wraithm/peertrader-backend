@@ -1,6 +1,7 @@
+{-# LANGUAGE FlexibleContexts #-}
+
 module PeerTrader where
 
-import           Control.Applicative            ((<$>))
 import           Control.Concurrent
 import           Control.Concurrent.Async
 import           Control.Concurrent.STM         (atomically, dupTChan,

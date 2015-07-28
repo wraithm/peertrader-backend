@@ -1,3 +1,4 @@
+{-# LANGUAGE FlexibleContexts  #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module PeerTrader.Account.Statistics where
@@ -5,8 +6,6 @@ module PeerTrader.Account.Statistics where
 import           Snap.Extras                    (finishEarly)
 import           Snap.Snaplet                   (with)
 import           Snap.Snaplet.Auth              (AuthUser (..), currentUser)
-
-import           Control.Applicative            ((<$>), (<*>))
 
 import           Data.Function                  (on)
 

@@ -14,7 +14,6 @@ import           Database.Groundhog.Generic
 import           Database.PostgreSQL.Simple.FromField hiding (Range, name)
 import           Database.PostgreSQL.Simple.ToField
 
-import           Control.Applicative                  (pure, (<$>), (<*>))
 import           Control.Monad                        (mzero)
 
 import           Blaze.ByteString.Builder             (fromByteString)

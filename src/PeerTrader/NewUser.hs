@@ -20,7 +20,6 @@ import           Control.Monad.State        (gets)
 
 import           Data.ByteString            (ByteString)
 import qualified Data.ByteString.Char8      as C
-import           Data.Functor               ((<$>))
 import           Data.Maybe                 (listToMaybe)
 import           Data.Monoid                ((<>))
 import           Data.Text                  (Text, null, strip)

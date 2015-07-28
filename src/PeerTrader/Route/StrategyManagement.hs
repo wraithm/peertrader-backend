@@ -1,9 +1,9 @@
 module PeerTrader.Route.StrategyManagement where
 
+import           Control.Applicative           ((<|>))
+
 import           Snap.Core
 import           Snap.Extras.JSON              (reqJSON, writeJSON)
-
-import           Control.Applicative           ((<|>))
 
 import           Application
 import qualified PeerTrader.Socket.Web         as C
